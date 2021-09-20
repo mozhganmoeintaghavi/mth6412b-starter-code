@@ -1,9 +1,12 @@
 import Base.show
 
-"""Type abstrait dont d'autres types de noeuds dériveront."""
+"""Type abstrait dont d'autres types de noeuds dériveront.
+EN: Abstract type from which other node types will be derived.
+"""
 abstract type AbstractNode{T} end
 
 """Type représentant les noeuds d'un graphe.
+EN: Type to representant the nodes of a graph
 
 Exemple:
 
@@ -20,13 +23,21 @@ end
 # on présume que tous les noeuds dérivant d'AbstractNode
 # posséderont des champs `name` et `data`.
 
-"""Renvoie le nom du noeud."""
+# it is assumed that all nodes derived from AbstractNode
+# will have `name` and `data` fields.
+
+"""Renvoie le nom du noeud.
+EN: Return the name of the node
+"""
 name(node::AbstractNode) = node.name
 
-"""Renvoie les données contenues dans le noeud."""
+"""Renvoie les données contenues dans le noeud.
+EN: Returns the data contained in the node """
 data(node::AbstractNode) = node.data
 
-"""Affiche un noeud."""
+"""Affiche un noeud.
+EN: present the node 
+"""
 function show(node::AbstractNode)
   println("Node ", name(node), ", data: ", data(node))
 end

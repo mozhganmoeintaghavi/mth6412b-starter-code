@@ -1,6 +1,8 @@
 using Plots
 
-"""Analyse un fichier .tsp et renvoie un dictionnaire avec les données de l'entête."""
+"""Analyse un fichier .tsp et renvoie un dictionnaire avec les données de l'entête.
+EN: Parses a .tsp file and returns a dictionary with the header data.
+"""
 function read_header(filename::String)
 
   file = open(filename, "r")
@@ -29,7 +31,13 @@ end
 
 """Analyse un fichier .tsp et renvoie un dictionnaire des noeuds sous la forme {id => [x,y]}.
 Si les coordonnées ne sont pas données, un dictionnaire vide est renvoyé.
-Le nombre de noeuds est dans header["DIMENSION"]."""
+Le nombre de noeuds est dans header["DIMENSION"].
+EN:
+Parses a .tsp file and returns a dictionary of nodes in the form {id => [x,y]}.
+If coordinates are not given, an empty dictionary is returned.
+The number of nodes is in header["DIMENSION"].
+
+"""
 function read_nodes(header::Dict{String}{String}, filename::String)
 
   nodes = Dict{Int}{Vector{Float64}}()
@@ -73,7 +81,11 @@ function read_nodes(header::Dict{String}{String}, filename::String)
 end
 
 """Fonction auxiliaire de read_edges, qui détermine le nombre de noeud à lire
-en fonction de la structure du graphe."""
+en fonction de la structure du graphe.
+EN:
+Auxiliary function of read_edges, which determines the number of nodes to read according to the structure of the graph.
+
+"""
 function n_nodes_to_read(format::String, n::Int, dim::Int)
   if format == "FULL_MATRIX"
     return dim
@@ -91,6 +103,7 @@ function n_nodes_to_read(format::String, n::Int, dim::Int)
 end
 
 """Analyse un fichier .tsp et renvoie l'ensemble des arêtes sous la forme d'un tableau."""
+"""Parses a .tsp file and returns the set of edges as an array."""
 function read_edges(header::Dict{String}{String}, filename::String)
 
   edges = []
@@ -170,6 +183,8 @@ function read_edges(header::Dict{String}{String}, filename::String)
 end
 
 """Renvoie les noeuds et les arêtes du graphe."""
+"""Returns the nodes and edges of the graph."""
+
 function read_stsp(filename::String)
   Base.print("Reading of header : ")
   header = read_header(filename)
@@ -205,13 +220,14 @@ function read_stsp(filename::String)
 end
 
 """Affiche un graphe étant données un ensemble de noeuds et d'arêtes.
-
+EN: Displays a graph given a set of nodes and edges.
 Exemple :
 
     graph_nodes, graph_edges = read_stsp("bayg29.tsp")
     plot_graph(graph_nodes, graph_edges)
     savefig("bayg29.pdf")
 """
+
 function plot_graph(nodes, edges)
   fig = plot(legend=false)
 
@@ -233,6 +249,7 @@ function plot_graph(nodes, edges)
 end
 
 """Fonction de commodité qui lit un fichier stsp et trace le graphe."""
+"""Convenience function that reads an stsp file and plots the graph."""
 function plot_graph(filename::String)
   graph_nodes, graph_edges = read_stsp(filename)
   plot_graph(graph_nodes, graph_edges)
