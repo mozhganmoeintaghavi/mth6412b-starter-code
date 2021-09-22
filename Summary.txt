@@ -1,0 +1,30 @@
+Phase 1
+-------------------
+1. Retrieve the code for phase 1 from the course website. You will find there a
+Node for the nodes of a graph and Graph for the graph itself. We also provide
+also a set of functions that read the files in TSPLib format. We limit ourselves here to
+symmetric problems whose weights are given in EXPLICIT format.
+2. Propose an Edge type to represent the edges of a graph.
+3. Extend the Graph type so that a graph contains its edges. We limit ourselves here to non
+oriented graphs. The user must be able to add one edge at a time to a graph.
+4. Extend the show method of a Graph object so that the edges of the graph
+are also displayed.
+5. Extend the read_edges() function of read_stsp.jl to read the weights of the edges (they are currently ignored).
+currently ignored).
+6. Provide a main program that reads a symmetric TSP instance whose weights are
+given in EXPLICIT format and builds a corresponding Graph object.
+7. Your code should be available on your fork of the startup repository on Github in a
+branch named phase1 . Indicate its address in your report. In addition, your report should
+demonstrate the use of your main program and its results.
+
+
+Write readable, airy, documented and commented code. You may wish to refer to the
+guidelines for writing Julia code at
+https://docs.julialang.org/en/v1/manual/style-guide
+Your methods must be documented according to the scheme given in the official Julia documentation
+official Julia documentation:
+https://docs.julialang.org/en/v1/manual/documentation
+You are encouraged to submit your report as a Pluto notebook following the
+instructions given on the course website. In this case, Markdown cells should
+guide the reader through your report
+
