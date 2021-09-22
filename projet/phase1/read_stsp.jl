@@ -102,8 +102,8 @@ function n_nodes_to_read(format::String, n::Int, dim::Int)
   end
 end
 
-"""Analyse un fichier .tsp et renvoie l'ensemble des arêtes sous la forme d'un tableau."""
-"""Parses a .tsp file and returns the set of edges as an array."""
+"""Analyse un fichier .tsp et renvoie l'ensemble des arêtes sous la forme d'un tableau.
+EN: Parses a .tsp file and returns the set of edges as an array."""
 function read_edges(header::Dict{String}{String}, filename::String)
 
   edges = []
@@ -182,8 +182,9 @@ function read_edges(header::Dict{String}{String}, filename::String)
   return edges
 end
 
-"""Renvoie les noeuds et les arêtes du graphe."""
-"""Returns the nodes and edges of the graph."""
+"""Renvoie les noeuds et les arêtes du graphe.
+
+En: Returns the nodes and edges of the graph."""
 
 function read_stsp(filename::String)
   Base.print("Reading of header : ")
@@ -247,9 +248,7 @@ function plot_graph(nodes, edges)
 
   fig
 end
-
-"""Fonction de commodité qui lit un fichier stsp et trace le graphe."""
-"""Convenience function that reads an stsp file and plots the graph."""
+"""Fonction de commodité qui lit un fichier stsp et trace le graphe EN: Convenience function that reads an stsp file and plots the graph"""
 function plot_graph(filename::String)
   graph_nodes, graph_edges = read_stsp(filename)
   plot_graph(graph_nodes, graph_edges)
