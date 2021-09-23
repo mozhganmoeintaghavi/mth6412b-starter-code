@@ -8,7 +8,7 @@ abstract type AbstractEdge{T} end
 
 Exemple:
 TODO examl
- 
+ edge1 = Edge((1,2), 100 )
 
 """
 mutable struct Edge{T} <: AbstractEdge{T}

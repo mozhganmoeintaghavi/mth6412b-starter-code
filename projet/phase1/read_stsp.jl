@@ -107,7 +107,7 @@ EN: Parses a .tsp file and returns the set of edges as an array."""
 function read_edges(header::Dict{String}{String}, filename::String)
 
   edges = []
-  edges_dict = Dict{Vector{Float64}}{Float64}() # we save them as (1,2) weigth 34.4 
+  edges_weight = Dict{Vector{Float64}}{Float64}() # we save them as (1,2) weigth 34.4 
   edge_weight_format = header["EDGE_WEIGHT_FORMAT"]
   known_edge_weight_formats = ["FULL_MATRIX", "UPPER_ROW", "LOWER_ROW",
   "UPPER_DIAG_ROW", "LOWER_DIAG_ROW", "UPPER_COL", "LOWER_COL",
@@ -141,7 +141,6 @@ function read_edges(header::Dict{String}{String}, filename::String)
         start = 0
         while n_data > 0
           n_on_this_line = min(n_to_read, n_data)
-          
           for j = start : start + n_on_this_line - 1
             n_edges = n_edges + 1
             if edge_weight_format in ["UPPER_ROW", "LOWER_COL"]
@@ -158,11 +157,11 @@ function read_edges(header::Dict{String}{String}, filename::String)
               warn("Unknown format - function read_edges")
             end
 
-            weight = parse(Int64, data[j+1]) # turn string to Int64 then float64
-            edges_dict[edge] = map(x -> x ,  parse(Int64, weight)) #change the name later 
+            # weight = parse(Float64, data[j+1]) # turn string to Int64 then float64   # TODO change this to be a array of weights
+            edges_weight[edge] = map(x -> parse(Float64, x)  data[j+1]) #change the name later 
             push!(edges, edge)
             i += 1
-          end
+          end 
 
           n_to_read -= n_on_this_line
           n_data -= n_on_this_line
@@ -183,7 +182,7 @@ function read_edges(header::Dict{String}{String}, filename::String)
     end
   end
   close(file)
-  return edges
+  return edges, edges_weight
 end
 
 """Renvoie les noeuds et les arêtes du graphe.
@@ -260,13 +259,3 @@ end
 
 
 
-# # Here I am creating a test to make sure our code runs
-cd("instances\\stsp\\")# go to the file for data
-graph_nodes, graph_edges = read_stsp("bayg29.tsp")
-print(size(graph_edges))
-print(graph_edges)
-print(graph_nodes)
-
-
-# plot_graph(graph_nodes, graph_edges)
-# savefig("bayg29.pdf")
