@@ -4,9 +4,9 @@ This program reads a symmetric TSP instance whose weights are given in EXPLICIT 
 
 # Import the other files 
    
-include("node.jl")
-include("edge.jl")
-include("graph.jl")
+# include("node.jl")
+# # include("edge.jl")
+# include("graph.jl")
 include("read_stsp.jl")
 
 

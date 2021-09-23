@@ -139,20 +139,22 @@ function read_edges(header::Dict{String}{String}, filename::String)
         data = split(line)
         n_data = length(data)
         start = 0
+        
         while n_data > 0
           n_on_this_line = min(n_to_read, n_data)
           for j = start : start + n_on_this_line - 1
+            weight = parse(Float64, data[j+1])
             n_edges = n_edges + 1
             if edge_weight_format in ["UPPER_ROW", "LOWER_COL"]
-              edge = (k+1, i+k+2)
+              edge = (k+1, i+k+2, weight)
             elseif edge_weight_format in ["UPPER_DIAG_ROW", "LOWER_DIAG_COL"]
-              edge = (k+1, i+k+1)
+              edge = (k+1, i+k+1, weight)
             elseif edge_weight_format in ["UPPER_COL", "LOWER_ROW"]
-              edge = (i+k+2, k+1)
+              edge = (i+k+2, k+1, weight)
             elseif edge_weight_format in ["UPPER_DIAG_COL", "LOWER_DIAG_ROW"]
-              edge = (i+1, k+1)
+              edge = (i+1, k+1, weight)
             elseif edge_weight_format == "FULL_MATRIX"
-              edge = (k+1, i+1)
+              edge = (k+1, i+1, weight)
             else
               warn("Unknown format - function read_edges")
             end
@@ -160,10 +162,8 @@ function read_edges(header::Dict{String}{String}, filename::String)
             # Way one 
             ## weight = parse(Float64, data[j+1]) # turn string to Int64 then float64   # TODO change this to be a array of weights
             ## edges_weight[edge] = map(x -> parse(Float64, x)  data[j+1]) #change the name later  or data[j-start+1]
-            # way two 
+            # way two
             # We will include the weight in the data
-
-
             push!(edges, edge)
             i += 1
           end 
@@ -187,7 +187,7 @@ function read_edges(header::Dict{String}{String}, filename::String)
     end
   end
   close(file)
-  return edges, edges_weight
+  return edges#, edges_weight
 end
 
 """Renvoie les noeuds et les arêtes du graphe.
@@ -206,19 +206,19 @@ function read_stsp(filename::String)
   println("✓")
 
   Base.print("Reading of edges : ")
-  edges_brut, edges_weight_brut = read_edges(header, filename)
+  edges_brut = read_edges(header, filename)
   graph_edges = []
   for k = 1 : dim
-    edge_list = Int[]
+    edge_list =  Tuple{Int, Float64}[]#  Int[] # change this to be a tuple
     push!(graph_edges, edge_list)
   end
 
+  # Here it adds edges to each nodes 
   for edge in edges_brut
     if edge_weight_format in ["UPPER_ROW", "LOWER_COL", "UPPER_DIAG_ROW", "LOWER_DIAG_COL"]
-      push!(graph_edges[edge[1]], edge[2])
+      push!(graph_edges[edge[1]], (edge[2],edge[3])) # I am adding weight to the edges
     else
-      #TODO problem here, I need to change the direction of the weight
-      push!(graph_edges[edge[2]], edge[1])
+      push!(graph_edges[edge[2]], (edge[1], edge[3]))
     end
   end
 
@@ -226,7 +226,7 @@ function read_stsp(filename::String)
     graph_edges[k] = sort(graph_edges[k])
   end
   println("✓")
-  return graph_nodes, graph_edges, edges_weight_brut
+  return graph_nodes, graph_edges
 end
 
 """Affiche un graphe étant données un ensemble de noeuds et d'arêtes.
@@ -259,7 +259,7 @@ function plot_graph(nodes, edges)
 end
 # """Fonction de commodité qui lit un fichier stsp et trace le graphe EN: Convenience function that reads an stsp file and plots the graph"""
 function plot_graph(filename::String)
-  graph_nodes, graph_edges, edges_weight = read_stsp(filename)
+  graph_nodes, graph_edges = read_stsp(filename)
   plot_graph(graph_nodes, graph_edges)
 end
 
