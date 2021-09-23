@@ -157,8 +157,13 @@ function read_edges(header::Dict{String}{String}, filename::String)
               warn("Unknown format - function read_edges")
             end
 
-            # weight = parse(Float64, data[j+1]) # turn string to Int64 then float64   # TODO change this to be a array of weights
-            edges_weight[edge] = map(x -> parse(Float64, x)  data[j+1]) #change the name later 
+            # Way one 
+            ## weight = parse(Float64, data[j+1]) # turn string to Int64 then float64   # TODO change this to be a array of weights
+            ## edges_weight[edge] = map(x -> parse(Float64, x)  data[j+1]) #change the name later  or data[j-start+1]
+            # way two 
+            # We will include the weight in the data
+
+
             push!(edges, edge)
             i += 1
           end 
@@ -201,7 +206,7 @@ function read_stsp(filename::String)
   println("✓")
 
   Base.print("Reading of edges : ")
-  edges_brut = read_edges(header, filename)
+  edges_brut, edges_weight_brut = read_edges(header, filename)
   graph_edges = []
   for k = 1 : dim
     edge_list = Int[]
@@ -212,6 +217,7 @@ function read_stsp(filename::String)
     if edge_weight_format in ["UPPER_ROW", "LOWER_COL", "UPPER_DIAG_ROW", "LOWER_DIAG_COL"]
       push!(graph_edges[edge[1]], edge[2])
     else
+      #TODO problem here, I need to change the direction of the weight
       push!(graph_edges[edge[2]], edge[1])
     end
   end
@@ -220,7 +226,7 @@ function read_stsp(filename::String)
     graph_edges[k] = sort(graph_edges[k])
   end
   println("✓")
-  return graph_nodes, graph_edges
+  return graph_nodes, graph_edges, edges_weight_brut
 end
 
 """Affiche un graphe étant données un ensemble de noeuds et d'arêtes.
@@ -253,7 +259,7 @@ function plot_graph(nodes, edges)
 end
 # """Fonction de commodité qui lit un fichier stsp et trace le graphe EN: Convenience function that reads an stsp file and plots the graph"""
 function plot_graph(filename::String)
-  graph_nodes, graph_edges = read_stsp(filename)
+  graph_nodes, graph_edges, edges_weight = read_stsp(filename)
   plot_graph(graph_nodes, graph_edges)
 end
 

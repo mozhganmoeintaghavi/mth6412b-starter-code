@@ -7,12 +7,16 @@ abstract type AbstractEdge{T} end
 """Type to representant the Edges of a graph
 
 Exemple:
-TODO examl
- edge1 = Edge((1,2), 100 )
+
+ #Old  edge1 = Edge("TO-MTL",(1,2), 100 )
+ edge1= Edge((1,2), 100 ) 
+
+ TODO I will try to break the edge to edgeNode1 , edgeNode2 later to make the reading them faster
 
 """
 mutable struct Edge{T} <: AbstractEdge{T}
-  edge::T # is a tuple (1,2)  shows the edge
+#   name::String  #automate this if you want ?
+  edge::Tuple{T, T} # is a tuple (1,2)  shows the edge  or Tuple{T, T}  or Tuple{Int64, Int64}
   weight::Float64
 end
 
@@ -21,6 +25,10 @@ end
 
 # it is assumed that all Edges derived from AbstractEdge
 # will have `edge` and `weight` fields.
+"""
+EN: Return the name of the edge
+"""
+name(edge::AbstractEdge) = edge.name
 
 """Renvoie le nom du noeud.
 EN: Return the edge of the Edge
@@ -35,5 +43,5 @@ weight(edge::AbstractEdge) = edge.weight
 EN: present the edge 
 """
 function show(edge::Abstractedge)
-  println("Edge ", edge(edge), ", weight: ", weight(edge))
+  println("Name ",edge(name) ,", Edge ", edge(edge), ", weight: ", weight(edge))
 end

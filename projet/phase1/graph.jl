@@ -3,7 +3,7 @@ import Base.show
 """Type abstrait dont d'autres types de graphes dériveront.
 EN: Abstract type from which other types of graphs will be derived.
 """
-abstract type AbstractGraph{T} end
+abstract type AbstractGraph{T, K} end
 
 """Type representant un graphe comme un ensemble de noeuds.
 En: Type representing a graph as a set of nodes.
@@ -18,16 +18,16 @@ Exemple :
 Attention, tous les noeuds doivent avoir des données de même type.
 EN: Attention, all nodes must have data of the same type.
 """
-mutable struct Graph{T} <: AbstractGraph{T}
+mutable struct Graph{T, K} <: AbstractGraph{T,K}
   name::String
   nodes::Vector{Node{T}}
-  # weight::Vector{Edge{T}}  # Added the place holder for
+  edges::Vector{Edge{K}}  
 end
 
 """Ajoute un noeud au graphe.
 EN: This Function adds a note to the graph
 """
-function add_node!(graph::Graph{T}, node::Node{T}) where T
+function add_node!(graph::Graph{T,K }, node::Node{T}) where {T, K}
   push!(graph.nodes, node)
   graph
 end
@@ -37,8 +37,12 @@ end
 
 # it is assumed that all graphs derived from AbstractGraph
 # will have `name` and `nodes` fields.
-
-
+""" This Function adds a Edge to the graph
+"""
+function add_edge!(graph::Graph{T,K}, edge::Edge{K}) where {T, K}
+  push!(graph.edges, edge)
+  graph
+end
 
 """Renvoie le nom du graphe.
 EN: Returns the name of the graph
@@ -54,6 +58,25 @@ nodes(graph::AbstractGraph) = graph.nodes
 EN: Returns a size or number of nodes of a graph
 """
 nb_nodes(graph::AbstractGraph) = length(graph.nodes)
+
+
+"""
+Return the graph edges 
+"""
+edges(graph::AbstractGraph) = graph.edges
+
+"""
+Number of Edges
+"""
+nb_edges(graph::AbstractGraph) = length(graph.edges)
+
+
+
+
+
+
+
+
 
 """Affiche un graphe
 EN: Display a graph
