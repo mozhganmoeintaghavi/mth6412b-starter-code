@@ -17,16 +17,16 @@ Exemple:
 
 """
 mutable struct Edge{K} <: AbstractEdge{K}
-  node1::Node{K} # start node
+  node1::Node{K} # Start node
   node2::Node{K} # Finish node
   weight::Float64
 end
 
 
 
-edgeStart(edge::AbstractEdge) = data(edge.node1)
+edgeStart(edge::AbstractEdge) = name(edge.node1)
 
-edgeEnd(edge::AbstractEdge) = data(edge.node2)
+edgeEnd(edge::AbstractEdge) = name(edge.node2)
 
 """Renvoie les données contenues dans le noeud.
 EN: Returns the weight contained in the edge """
