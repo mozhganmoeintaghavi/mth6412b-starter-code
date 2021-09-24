@@ -83,7 +83,7 @@ EN: Display a graph
 """
 function show(graph::Graph)
   println("Graph ", name(graph), " has ", nb_nodes(graph), " nodes.")
-  println("Graph ", name(graph), " has ", nb_edges(graph), " nodes.")
+  println("Graph ", name(graph), " has ", nb_edges(graph), " Edges.")
 
   for node in nodes(graph)
     show(node)

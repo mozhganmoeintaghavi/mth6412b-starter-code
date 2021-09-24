@@ -2,8 +2,7 @@
 This program reads a symmetric TSP instance whose weights are given in EXPLICIT format and builds a corresponding Graph object.
 """
 
-# Import the other files 
-   
+# Import the other files    
 include("node.jl")
 include("edge.jl")
 include("graph.jl")
@@ -11,7 +10,6 @@ include("read_stsp.jl")
 
 
 # read the graph from the file 
-
 cd("instances\\stsp\\")# go to the file for data
 graphName = "gr17"  # this name used for name of the graph
 fileName = string(graphName,".tsp")
@@ -33,8 +31,7 @@ end
  # edge positions
  # go through the edge list and create the edges of the graph
 
-# edgesList = []
-# edgesList = Array{Edge, 1}(undef, length(graph_edges)) # or `Vector{Edge}(undef, length(graph_edges))`
+
 edgesList=Edge{Int64}[]
  for k = 1 : length(graph_edges)
     for j = 1 : length(graph_edges[k])
