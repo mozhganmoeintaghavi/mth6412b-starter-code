@@ -1,9 +1,7 @@
 Phase 1
 -------------------
-1. Retrieve the code for phase 1 from the course website. You will find there a
-Node for the nodes of a graph and Graph for the graph itself. We also provide
-also a set of functions that read the files in TSPLib format. We limit ourselves here to
-symmetric problems whose weights are given in EXPLICIT format.
+1. Retrieve the code for phase 1 from the course website. You will find there a Node for the nodes of a graph and Graph for the graph itself. We also provide
+also a set of functions that read the files in TSPLib format. We limit ourselves here to  symmetric problems whose weights are given in EXPLICIT format.
 
 2. Propose an Edge type to represent the edges of a graph.
 

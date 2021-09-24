@@ -1,9 +1,9 @@
 import Base.show
-include("node.jl")
+# include("node.jl")
 
 """ Abstract type from which other edge types will be derived.
 """
-abstract type AbstractEdge{T} end
+abstract type AbstractEdge{K} end
 
 """Type to representant the Edges of a graph
 
@@ -37,9 +37,9 @@ end
 # """
 # edge(edge::AbstractEdge) = edge.edge
 
-edgeStart(edge::AbstractEdge) = edge.node1
+edgeStart(edge::AbstractEdge) = edge.node1.data
 
-edgeEnd(edge::AbstractEdge) = edge.node2
+edgeEnd(edge::AbstractEdge) = edge.node2.data
 
 """Renvoie les données contenues dans le noeud.
 EN: Returns the weight contained in the edge """
@@ -49,6 +49,6 @@ weight(edge::AbstractEdge) = edge.weight
 EN: present the edge 
 """
 # Fix this later
-# function show(edge::Abstractedge)
-#   println("Name ",edge(name) ,", Edge ", edge(edge), ", weight: ", weight(edge))
-# end
+function show(edge::Abstractedge)
+  println("Starting Point ",edgeStart(edge) ,", EndNode ", edgeEnd(edge), ", weight: ", weight(edge))
+end
