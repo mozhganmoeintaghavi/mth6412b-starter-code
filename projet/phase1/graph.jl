@@ -13,7 +13,12 @@ Exemple :
     node1 = Node("Joe", 3.14)
     node2 = Node("Steve", exp(1))
     node3 = Node("Jill", 4.12)
-    G = Graph("Ick", [node1, node2, node3])
+
+    edge1= Edge(node1, node2, 50.1)
+    edge2= Edge(node2, node3, 50.1)
+
+
+    G = Graph("Ick", [node1, node2, node3], [edge1, edge2])
 
 Attention, tous les noeuds doivent avoir des données de même type.
 EN: Attention, all nodes must have data of the same type.
@@ -27,7 +32,7 @@ end
 """Ajoute un noeud au graphe.
 EN: This Function adds a note to the graph
 """
-function add_node!(graph::Graph{T,K }, node::Node{T}) where {T, K}
+function add_node!(graph::Graph{T,K}, node::Node{T}) where {T, K}
   push!(graph.nodes, node)
   graph
 end
@@ -69,11 +74,6 @@ edges(graph::AbstractGraph) = graph.edges
 Number of Edges
 """
 nb_edges(graph::AbstractGraph) = length(graph.edges)
-
-
-
-
-
 
 
 

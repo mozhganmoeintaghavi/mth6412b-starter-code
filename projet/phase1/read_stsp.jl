@@ -238,13 +238,14 @@ Exemple :
     savefig("bayg29.pdf")
 """
 
+
 function plot_graph(nodes, edges)
   fig = plot(legend=false)
 
   # edge positions
   for k = 1 : length(edges)
     for j in edges[k]
-      plot!([nodes[k][1], nodes[j][1]], [nodes[k][2], nodes[j][2]],
+      plot!([nodes[k][1], nodes[j[1]][1]], [nodes[k][2], nodes[j[1]][2]],
           linewidth=1.5, alpha=0.75, color=:lightgray)
     end
   end

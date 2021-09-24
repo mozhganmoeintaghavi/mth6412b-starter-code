@@ -15,8 +15,9 @@ Exemple:
 
 """
 mutable struct Edge{T} <: AbstractEdge{T}
-#   name::String  #automate this if you want ?
-  edge::Tuple{T, T} # is a tuple (1,2)  shows the edge  or Tuple{T, T}  or Tuple{Int64, Int64}
+#   edge::Tuple{T, T} # is a tuple (1,2)  shows the edge  or Tuple{T, T}  or Tuple{Int64, Int64}
+  node1::Node{T} # start node
+  node2::Node{T} # Finish node
   weight::Float64
 end
 
