@@ -41,7 +41,7 @@ for k=1:length(graph_edges)
     if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
         nodes_buff = Node(graph_nodes[k][1], graph_nodes[k][2])
     else
-        nodes_buff = Node(k, k ) #name is the same as we assign it 
+        nodes_buff = Node(string(k), k ) #name is the same as we assign it 
     end
     push!(nodesList,nodes_buff)
 end
@@ -52,9 +52,9 @@ end
 #  edges= {Vector{Edge{K}}}[]
 edgesList = []
  for k = 1 : length(graph_edges)
-    for j in graph_edges[k]
+    for j = 1 : length(graph_edges[k])
         # Edge(node1, node2, weight)
-        edge_buff=Edge(nodesList[k][1], nodesList[j][1],graph_edges[j][k])
+        edge_buff=Edge(nodesList[k], nodesList[j], graph_edges[k][j][2])
         push!(edgesList, edge_buff)
         # print(j)
     end
