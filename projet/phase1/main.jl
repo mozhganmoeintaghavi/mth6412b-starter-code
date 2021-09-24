@@ -25,7 +25,7 @@ graph_nodes, graph_edges = read_stsp(fileName)
 # print(size(graph_edges))
 # print(graph_edges[10])
 # print(length(graph_edges))
-# print(graph_nodes)
+print(graph_nodes)
 
 
 
@@ -35,7 +35,8 @@ graph_nodes, graph_edges = read_stsp(fileName)
 # go through the nodes and create the nodes of the graph using the edge lists (name of the node is the edge[1])
 
 # nodes = Dict{Int}{Vector{Node{T}}}()
-nodes= {Vector{Node{T}}}[]
+# nodes= {Vector{T}}[]
+nodes = []
 for k=1:length(graph_edges)
     if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
         nodes_buff = Node(graph_nodes[k][1], graph_nodes[k][2])
@@ -48,8 +49,8 @@ end
  # edge positions
  # go through the edge list and create the edges of the graph
 
- edges= {Vector{Edge{K}}}[]
-
+#  edges= {Vector{Edge{K}}}[]
+edges = []
  for k = 1 : length(graph_edges)
     for j in graph_edges[k]
         # Edge(node1, node2, weight)
