@@ -264,10 +264,12 @@ fileName = string(graphName,\".tsp\")
 graph_nodes, graph_edges = read_stsp(fileName)
 
 
-# nodesList = Array{Node, 1}(undef, length(graph_edges)) # or `Vector{Node}(undef, length(graph_edges))`
+if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
+    nodesList = Node{typeof(graph_nodes[1][1])}[]
+else
+    nodesList = Node{Int64}[]
+end
 
-nodesList = Node{Int64}[]
-# nodesList = AbstractNode[]
 
 for k=1:length(graph_edges)
     if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 

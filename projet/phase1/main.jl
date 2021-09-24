@@ -18,12 +18,19 @@ graph_nodes, graph_edges = read_stsp(fileName)
 
 # nodesList = Array{Node, 1}(undef, length(graph_edges)) # or `Vector{Node}(undef, length(graph_edges))`
 
-nodesList = Node{Int64}[]
+# nodesList = Node{Int64}[]
+
 # nodesList = AbstractNode[]
+if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
+    nodesList = Node{typeof(graph_nodes[1][1])}[]
+else
+    nodesList = Node{Int64}[]
+end
+
 
 for k=1:length(graph_edges)
     if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
-        node_buff = Node(graph_nodes[k][1], graph_nodes[k][2])
+        node_buff = Node(string(graph_nodes[k][1]), graph_nodes[k][2])
     else
         node_buff = Node(string(k), k ) #name is the same as we assign it 
     end
