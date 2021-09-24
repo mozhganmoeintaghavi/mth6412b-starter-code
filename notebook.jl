@@ -58,14 +58,12 @@ md"
 Here is the code snip which we included here :
 
 ```julia
-
-
 import Base.show
 include(\"node.jl\")
 
 \"\"\" Abstract type from which other edge types will be derived.
 \"\"\"
-abstract type AbstractEdge{K} end
+# abstract type AbstractEdge end
 
 \"\"\"Type to representant the Edges of a graph
 
@@ -78,31 +76,31 @@ Exemple:
  TODO I will try to break the edge to edgeNode1 , edgeNode2 later to make the reading them faster
 
 \"\"\"
-mutable struct Edge{K} <: AbstractEdge{K}
-  node1::Node{K} # start node
-  node2::Node{K} # Finish node
+mutable struct Edge 
+  # node1::Node{K} # Start node 
+  node1::AbstractNode #
+  # node2::Node{K} # Finish node
+  node2::AbstractNode #
   weight::Float64
 end
 
 
 
-edgeStart(edge::AbstractEdge) = data(edge.node1)
+edgeStart(edge) = name(edge.node1)
 
-edgeEnd(edge::AbstractEdge) = data(edge.node2)
+edgeEnd(edge) = name(edge.node2)
 
 \"\"\"Renvoie les données contenues dans le noeud.
 EN: Returns the weight contained in the edge \"\"\"
-weight(edge::AbstractEdge) = edge.weight
+weight(edge) = edge.weight
 
 \"\"\"Affiche un noeud.
 EN: present the edge 
 \"\"\"
 # Fix this later
-function show(edge::AbstractEdge)
+function show(edge)
   println(\"Starting Point \",edgeStart(edge) ,\", EndNode \", edgeEnd(edge), \", weight: \", weight(edge))
 end
-
-
 
 ```
 
@@ -147,7 +145,7 @@ import Base.show
 \"\"\"Type abstrait dont d'autres types de graphes dériveront.
 EN: Abstract type from which other types of graphs will be derived.
 \"\"\"
-abstract type AbstractGraph{T, K} end
+abstract type AbstractGraph{T} end
 
 \"\"\"Type representant un graphe comme un ensemble de noeuds.
 En: Type representing a graph as a set of nodes.
@@ -167,16 +165,16 @@ Exemple :
 Attention, tous les noeuds doivent avoir des données de même type.
 EN: Attention, all nodes must have data of the same type.
 \"\"\"
-mutable struct Graph{T, K} <: AbstractGraph{T,K}
+mutable struct Graph{T} <: AbstractGraph{T}
   name::String
   nodes::Vector{Node{T}}
-  edges::Vector{Edge{K}}  
+  edges::Vector{Edge}  
 end
 
 \"\"\"Ajoute un noeud au graphe.
 EN: This Function adds a note to the graph
 \"\"\"
-function add_node!(graph::Graph{T,K}, node::Node{T}) where {T, K}
+function add_node!(graph::Graph{T}, node::Node{T}) where T
   push!(graph.nodes, node)
   graph
 end
@@ -188,7 +186,7 @@ end
 # will have `name` and `nodes` fields.
 \"\"\" This Function adds a Edge to the graph
 \"\"\"
-function add_edge!(graph::Graph{T,K}, edge::Edge{K}) where {T, K}
+function add_edge!(graph::Graph{T}, edge::Edge) where T
   push!(graph.edges, edge)
   graph
 end
@@ -260,14 +258,16 @@ include(\"read_stsp.jl\")
 
 
 # read the graph from the file 
-cd(\"instances\\stsp\\ \") # go to the file for data
+cd(\"instances\\stsp\\ \")# go to the file for data
 graphName = \"gr17\"  # this name used for name of the graph
 fileName = string(graphName,\".tsp\")
 graph_nodes, graph_edges = read_stsp(fileName)
 
 
 # nodesList = Array{Node, 1}(undef, length(graph_edges)) # or `Vector{Node}(undef, length(graph_edges))`
+
 nodesList = Node{Int64}[]
+# nodesList = AbstractNode[]
 
 for k=1:length(graph_edges)
     if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
@@ -282,7 +282,9 @@ end
  # go through the edge list and create the edges of the graph
 
 
-edgesList=Edge{Int64}[]
+# edgesList=Edge{Int64}[]
+edgesList=Edge[]
+# edgesList = AbstractEdge[]
  for k = 1 : length(graph_edges)
     for j = 1 : length(graph_edges[k])
         edge_buff=Edge(nodesList[k], nodesList[j], graph_edges[k][j][2])
@@ -295,10 +297,14 @@ edgesList=Edge{Int64}[]
 G = Graph(graphName, nodesList, edgesList)
 show(G)
 
+
 ```
 
 
 "
+
+# ╔═╡ e9a2f40c-e786-4eb4-aaf3-0a45bd89880c
+
 
 # ╔═╡ b1130557-6671-44bb-9354-34a0acd46ca1
 md"
@@ -496,6 +502,7 @@ Summary of what we did and what we learn
 # ╠═65a51afa-6063-43b6-bca4-4a025cfc722e
 # ╠═3687542f-1a0e-4082-9bdd-1c2f8c0abcaf
 # ╠═3b377075-470a-498e-88e3-728879906f78
+# ╠═e9a2f40c-e786-4eb4-aaf3-0a45bd89880c
 # ╠═b1130557-6671-44bb-9354-34a0acd46ca1
 # ╠═043c52fb-0a58-4bdf-aa9c-32d5216c3a08
 # ╠═dc6afbc2-3a75-4adb-85a3-9520c9ae4bfa

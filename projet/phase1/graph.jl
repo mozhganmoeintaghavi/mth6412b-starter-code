@@ -3,7 +3,7 @@ import Base.show
 """Type abstrait dont d'autres types de graphes dériveront.
 EN: Abstract type from which other types of graphs will be derived.
 """
-abstract type AbstractGraph{T, K} end
+abstract type AbstractGraph{T} end
 
 """Type representant un graphe comme un ensemble de noeuds.
 En: Type representing a graph as a set of nodes.
@@ -23,16 +23,16 @@ Exemple :
 Attention, tous les noeuds doivent avoir des données de même type.
 EN: Attention, all nodes must have data of the same type.
 """
-mutable struct Graph{T, K} <: AbstractGraph{T,K}
+mutable struct Graph{T} <: AbstractGraph{T}
   name::String
   nodes::Vector{Node{T}}
-  edges::Vector{Edge{K}}  
+  edges::Vector{Edge}  
 end
 
 """Ajoute un noeud au graphe.
 EN: This Function adds a note to the graph
 """
-function add_node!(graph::Graph{T,K}, node::Node{T}) where {T, K}
+function add_node!(graph::Graph{T}, node::Node{T}) where T
   push!(graph.nodes, node)
   graph
 end
@@ -44,7 +44,7 @@ end
 # will have `name` and `nodes` fields.
 """ This Function adds a Edge to the graph
 """
-function add_edge!(graph::Graph{T,K}, edge::Edge{K}) where {T, K}
+function add_edge!(graph::Graph{T}, edge::Edge) where T
   push!(graph.edges, edge)
   graph
 end

@@ -3,7 +3,7 @@ include("node.jl")
 
 """ Abstract type from which other edge types will be derived.
 """
-abstract type AbstractEdge{K} end
+# abstract type AbstractEdge end
 
 """Type to representant the Edges of a graph
 
@@ -16,26 +16,28 @@ Exemple:
  TODO I will try to break the edge to edgeNode1 , edgeNode2 later to make the reading them faster
 
 """
-mutable struct Edge{K} <: AbstractEdge{K}
-  node1::Node{K} # Start node
-  node2::Node{K} # Finish node
+mutable struct Edge 
+  # node1::Node{K} # Start node 
+  node1::AbstractNode #
+  # node2::Node{K} # Finish node
+  node2::AbstractNode #
   weight::Float64
 end
 
 
 
-edgeStart(edge::AbstractEdge) = name(edge.node1)
+edgeStart(edge) = name(edge.node1)
 
-edgeEnd(edge::AbstractEdge) = name(edge.node2)
+edgeEnd(edge) = name(edge.node2)
 
 """Renvoie les données contenues dans le noeud.
 EN: Returns the weight contained in the edge """
-weight(edge::AbstractEdge) = edge.weight
+weight(edge) = edge.weight
 
 """Affiche un noeud.
 EN: present the edge 
 """
 # Fix this later
-function show(edge::AbstractEdge)
+function show(edge)
   println("Starting Point ",edgeStart(edge) ,", EndNode ", edgeEnd(edge), ", weight: ", weight(edge))
 end

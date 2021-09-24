@@ -17,7 +17,9 @@ graph_nodes, graph_edges = read_stsp(fileName)
 
 
 # nodesList = Array{Node, 1}(undef, length(graph_edges)) # or `Vector{Node}(undef, length(graph_edges))`
+
 nodesList = Node{Int64}[]
+# nodesList = AbstractNode[]
 
 for k=1:length(graph_edges)
     if (length(graph_nodes) > 0) # check to see if the name is assigned in the TSP file, if not we do something else 
@@ -32,7 +34,9 @@ end
  # go through the edge list and create the edges of the graph
 
 
-edgesList=Edge{Int64}[]
+# edgesList=Edge{Int64}[]
+edgesList=Edge[]
+# edgesList = AbstractEdge[]
  for k = 1 : length(graph_edges)
     for j = 1 : length(graph_edges[k])
         edge_buff=Edge(nodesList[k], nodesList[j], graph_edges[k][j][2])
