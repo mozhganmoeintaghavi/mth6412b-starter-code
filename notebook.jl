@@ -4,46 +4,52 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ bc370dd0-1be8-11ec-07f6-e7ed296b0324
-md"# Assignment 1
+# ╔═╡ d139d2ca-7a01-4a16-bd9f-ea5d2668287a
+md"
+Date: 09/24/2021
+"
 
-## Class??
-## Prof. Orban
-Group:
-* Mozhgan 
-* Farhad Rahbarnia 
+# ╔═╡ b46239d7-3cdd-4d07-b72c-3122dffdb8a9
+md"# Assignment 1- Phase 1 of the project
+#### Class MTH6412B
+### Under the supervision of Prof. Dominique Orban
+"
 
-This document holds the summary of the steps and outputs of Phase 1 of the class project.
+# ╔═╡ b157ce54-ad1e-44a2-ba52-4e4881407336
+md"""
+Names:
+* 1]Mozhgan Moeintaghavi
+* 2]Farhad Rahbarnia 
+[1] Mathematics and Industrial engineering Faculty, Polytechnique Montréal, [Email](mozhgan.moeintaghavi@polymtl.ca)
 
+[2]Mathematics and Industrial engineering Faculty, Polytechnique Montréal, [Email](Farhad.rahbarnia@polymtl.ca)
+"""
 
+# ╔═╡ f7536602-86d4-4043-b27a-ba152ebc3cdf
+md" 
+# Introduction 
 
-[Code to Github: https://github.com/farhadrclass/mth6412b-starter-code]( https://github.com/farhadrclass/mth6412b-starter-code )
-
+This document contains an overview of Phase 1 of the class project's steps and outputs.
 
 "
 
 # ╔═╡ 4dc27f4d-7c9c-4d93-b3c3-eb7cd5d73413
 md"
-# Summary of What we did?
+# An overview of what has been accomplished
 
-1. Retrieve the code for phase 1 from the course website. You will find there a
-Node for the nodes of a graph and Graph for the graph itself. We also provide
-also a set of functions that read the files in TSPLib format. We limit ourselves here to
-symmetric problems whose weights are given in EXPLICIT format.
+Here are the steps that we have done:
 
-2. Propose an Edge type to represent the edges of a graph.
+1. In this project, only symmetric problems with weights in explicit format are considered.
 
-3. Extend the Graph type so that a graph contains its edges. We limit ourselves here to non oriented graphs. The user must be able to add one edge at a time to a graph.
+2. We introduced an Edge type to denote a graph's edges.
 
-4. Extend the show method of a Graph object so that the edges of the graph are also displayed.
+3. We expanded the Graph type to include its edges. Considering the non-oriented graphs, we wrote the code in a way that user is allowed to add one edge to a graph at a time.
+
+4. We showed the edges of the graph.
  
-5. Extend the read_edges() function of read_stsp.jl to read the weights of the edges (they are currently ignored). 
+5. We extended the read_edges() function of read_stsp.jl file to activate, and read the weights of the edges.
 
-6. Provide a main program that reads a symmetric TSP instance whose weights are given in EXPLICIT format and builds a corresponding Graph object.
-
-7. Your code should be available on your fork of the startup repository on Github in a
-branch named phase1 . Indicate its address in your report. In addition, your report should
-demonstrate the use of your main program and its results.
+6. We provided a main program that reads a symmetric TSP instance whose weights are given in EXPLICIT format and builds a corresponding Graph object.
 
 
 
@@ -53,9 +59,9 @@ demonstrate the use of your main program and its results.
 # ╔═╡ f05adbc6-d170-49ad-a079-5748d314db4c
 md"
 
-# edge.jl
+# The file edge.jl 
 
-Here is the code snip which we included here :
+Here is the code snip which we have included in the following :
 
 ```julia
 import Base.show
@@ -109,7 +115,7 @@ end
 
 # ╔═╡ 65a51afa-6063-43b6-bca4-4a025cfc722e
 md"
-# read_stsp.jl
+# The file read_stsp.jl 
 We added a Weight to this here and added to tuple of edges 
 
 ```julia
@@ -137,7 +143,7 @@ We added a Weight to this here and added to tuple of edges
 
 # ╔═╡ 3687542f-1a0e-4082-9bdd-1c2f8c0abcaf
 md"
-# graph.jl
+# The file graph.jl
 For this file, we added a edge varible
 ```julia
 import Base.show
@@ -242,7 +248,7 @@ end
 
 # ╔═╡ 3b377075-470a-498e-88e3-728879906f78
 md"
-# main.ji
+# The file main.jl
 This files, read a stsp file, create edges and Nodes, then create and show the graph
 
 ```julia 
@@ -310,7 +316,7 @@ show(G)
 
 # ╔═╡ b1130557-6671-44bb-9354-34a0acd46ca1
 md"
-# Output of the system 
+# Example of an output of the system 
 
 ```console
 Graph gr17 has 17 nodes.
@@ -489,23 +495,38 @@ Starting Point 17, EndNode 17, weight: 0.0
 "
 
 # ╔═╡ 043c52fb-0a58-4bdf-aa9c-32d5216c3a08
-
+md"
+# Github respitory URL:
+[Code to Github: https://github.com/farhadrclass/mth6412b-starter-code]( https://github.com/farhadrclass/mth6412b-starter-code )
+"
 
 # ╔═╡ dc6afbc2-3a75-4adb-85a3-9520c9ae4bfa
-# Questions 
+md"
+# Questions:
+
+gr17...
+
+
+"
 
 # ╔═╡ aeeed655-c80c-486a-9dba-862cfbd41cd3
-Summary of what we did and what we learn
+md"
+# Conclusion
+
+"
 
 # ╔═╡ Cell order:
-# ╠═bc370dd0-1be8-11ec-07f6-e7ed296b0324
+# ╟─d139d2ca-7a01-4a16-bd9f-ea5d2668287a
+# ╠═b46239d7-3cdd-4d07-b72c-3122dffdb8a9
+# ╟─b157ce54-ad1e-44a2-ba52-4e4881407336
+# ╠═f7536602-86d4-4043-b27a-ba152ebc3cdf
 # ╠═4dc27f4d-7c9c-4d93-b3c3-eb7cd5d73413
 # ╠═f05adbc6-d170-49ad-a079-5748d314db4c
 # ╠═65a51afa-6063-43b6-bca4-4a025cfc722e
 # ╠═3687542f-1a0e-4082-9bdd-1c2f8c0abcaf
 # ╠═3b377075-470a-498e-88e3-728879906f78
 # ╠═e9a2f40c-e786-4eb4-aaf3-0a45bd89880c
-# ╠═b1130557-6671-44bb-9354-34a0acd46ca1
+# ╟─b1130557-6671-44bb-9354-34a0acd46ca1
 # ╠═043c52fb-0a58-4bdf-aa9c-32d5216c3a08
 # ╠═dc6afbc2-3a75-4adb-85a3-9520c9ae4bfa
 # ╠═aeeed655-c80c-486a-9dba-862cfbd41cd3
