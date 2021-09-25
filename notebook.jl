@@ -31,25 +31,47 @@ md"
 
 This document contains an overview of Phase 1 of the class project's steps and outputs.
 
+In this project, only symmetric problems with weights in explicit format are considered.
+
+
 "
 
 # ╔═╡ 4dc27f4d-7c9c-4d93-b3c3-eb7cd5d73413
 md"
 # An overview of what has been accomplished
 
-Here are the steps that we have done:
+We developed our code in the Phase 1 branch after considering the explicit weights in the symmetric problems. We have four significant files in our programme: nodes.jl, graphs.jl, graphs.jl, read stsp.jl, and main.jl, the most significant of which is the main.jl file.
 
-1. In this project, only symmetric problems with weights in explicit format are considered.
+Basically, we almost did not change the nodes.jl file from the original code. Actually, we have introduced the graphs with two parameters of nodes, and edges. 
 
-2. We introduced an Edge type to denote a graph's edges.
 
-3. We expanded the Graph type to include its edges. Considering the non-oriented graphs, we wrote the code in a way that user is allowed to add one edge to a graph at a time.
+lines..... (flipped)
 
-4. We showed the edges of the graph.
+
+We tested this for the gr17 instance from the stsp file, and we were unable to plot it using the plot graph() function since it does not allow us to execute, and there is no way for fixing it. We could, however, plot for the bayg29 instance that we provided in our assignment outputs. 
+
+
+The name and data of each node can be derived from the node.jl file and printed using the show function. We kept this file entirely as it was in the original code.
+
+
+
+
+
+
+
+
+Here are the main steps that we have done:
+
+
+1. We introduced an Edge type to denote a graph's edges.
+
+2. We expanded the Graph type to include its edges. Considering the non-oriented graphs, we wrote the code in a way that user is allowed to add one edge to a graph at a time.
+
+3. We showed the edges of the graph.
  
-5. We extended the read_edges() function of read_stsp.jl file to activate, and read the weights of the edges.
+4. We extended the read_edges() function of read_stsp.jl file to activate, and read the weights of the edges.
 
-6. We provided a main program that reads a symmetric TSP instance whose weights are given in EXPLICIT format and builds a corresponding Graph object.
+5. We provided a main program that reads a symmetric TSP instance whose weights are given in EXPLICIT format and builds a corresponding Graph object.
 
 
 
@@ -61,7 +83,30 @@ md"
 
 # The file edge.jl 
 
-Here is the code snip which we have included in the following :
+This file is said to be abstract type because we do not know about the input type, and was written in a similar manner as the nodes.jl file. The difference is that here, Node1 and Node2 are connected to the other two nodes.  We specifically set the starting node and the ending node, which indicate where the node begins and ends. 
+
+
+
+
+In this code, we tried to break the edge to edgeNode1 , edgeNode2 to make it possible to read them faster in the future phases of the project, and would make it easier.
+
+
+
+
+
+
+As a result, it defines the edge start and end, and then the edge's weight was determined. 
+
+
+Finally, we can use the show function to output the edge by importing the nodes.jl file.
+
+
+
+
+
+
+
+Here is the code snippet that we have included in the following after removing the comments and showing partial sections of the code we created:
 
 ```julia
 import Base.show
@@ -79,7 +124,7 @@ Exemple:
     #edge1= Edge((1,2), 100 ) 
     edge1= Edge(node1, node2, 50.1)
 
- TODO I will try to break the edge to edgeNode1 , edgeNode2 later to make the reading them faster
+
 
 \"\"\"
 mutable struct Edge 
@@ -144,7 +189,20 @@ We added a Weight to this here and added to tuple of edges
 # ╔═╡ 3687542f-1a0e-4082-9bdd-1c2f8c0abcaf
 md"
 # The file graph.jl
-For this file, we added a edge varible
+
+We added an edge variable to this file. Instead of using the two add_node!() and add_edge!() functions, we used the example below to set Node1, Node2, Node3, and also  edge1, and edge2. The purpose here was so that we may add or remove nodes and edges later on in the next project's phases.
+
+Then, for the graphs, we defined three functions: names, nodes, and number of nodes. Finally, by reading the nodes and edges from the nodes.jl and edges.jl files, we can output the graph.
+
+
+
+
+
+
+
+
+
+
 ```julia
 import Base.show
 
@@ -185,11 +243,8 @@ function add_node!(graph::Graph{T}, node::Node{T}) where T
   graph
 end
 
-# on présume que tous les graphes dérivant d'AbstractGraph
-# posséderont des champs `name` et `nodes`.
 
-# it is assumed that all graphs derived from AbstractGraph
-# will have `name` and `nodes` fields.
+
 \"\"\" This Function adds a Edge to the graph
 \"\"\"
 function add_edge!(graph::Graph{T}, edge::Edge) where T
@@ -236,7 +291,7 @@ function show(graph::Graph)
   for node in nodes(graph)
     show(node)
   end
-  # for the edges
+ 
   for edge in edges(graph)
     show(edge)
   end  
@@ -249,7 +304,25 @@ end
 # ╔═╡ 3b377075-470a-498e-88e3-728879906f78
 md"
 # The file main.jl
-This files, read a stsp file, create edges and Nodes, then create and show the graph
+
+To begin, this file imports all of the previous files we've created.
+
+
+Second, it reads a stsp file, switches the directory to the data file, and then allows us to select a graph name among several instances.
+The nodes and edges of the graph are then created.
+
+
+
+
+array......list...location
+
+
+
+
+
+
+
+Finally, it generates the graph using data types and can display it using the graph name, edges list, and nodes list parameters. The final graph is shown in this step.
 
 ```julia 
 \"\"\"
@@ -310,9 +383,6 @@ show(G)
 
 
 "
-
-# ╔═╡ e9a2f40c-e786-4eb4-aaf3-0a45bd89880c
-
 
 # ╔═╡ b1130557-6671-44bb-9354-34a0acd46ca1
 md"
@@ -496,7 +566,7 @@ Starting Point 17, EndNode 17, weight: 0.0
 
 # ╔═╡ 043c52fb-0a58-4bdf-aa9c-32d5216c3a08
 md"
-# Github respitory URL:
+# Github repository URL:
 [Code to Github: https://github.com/farhadrclass/mth6412b-starter-code]( https://github.com/farhadrclass/mth6412b-starter-code )
 "
 
@@ -504,7 +574,7 @@ md"
 md"
 # Questions:
 
-gr17...
+Question 1. When we look at several of the graphs, notably the gr17, we see that the weight between node 1 and node 2 is zero. The zero weights, on the other hand, are not visible in the graph (bayg29). We are puzzled on why this difference occurs among the instances.
 
 
 "
@@ -525,7 +595,6 @@ md"
 # ╠═65a51afa-6063-43b6-bca4-4a025cfc722e
 # ╠═3687542f-1a0e-4082-9bdd-1c2f8c0abcaf
 # ╠═3b377075-470a-498e-88e3-728879906f78
-# ╠═e9a2f40c-e786-4eb4-aaf3-0a45bd89880c
 # ╟─b1130557-6671-44bb-9354-34a0acd46ca1
 # ╠═043c52fb-0a58-4bdf-aa9c-32d5216c3a08
 # ╠═dc6afbc2-3a75-4adb-85a3-9520c9ae4bfa
