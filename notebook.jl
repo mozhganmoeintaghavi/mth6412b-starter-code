@@ -73,12 +73,12 @@ md"
 
 # The edge.jl file 
 
-This file is said to be abstract type because we do not know about the input type, and was written in a similar manner as the node.jl file. The difference is that here, Node1 and Node2 are connected to the other two nodes.  We specifically set the starting node and the ending node, which indicate where the node begins and ends. 
+In this file, we specifically set the starting node and the ending node, which indicate where the node begins and ends. 
+
+In this code, we generated a data type that has a node for the start and a node for the end, as well as a float64 for the edge's weight. This file is not abstract since all data types (including the node type) are predefined, and the Edge type is a struct in Julia.
 
 
-
-
-In this code, we tried to break the edge to edgeNode1 , edgeNode2 to make it possible to read them faster in the future phases of the project, which would make it easier.
+In fact, we tried to break the edge to edgeNode1 , edgeNode2 to make it possible to read them faster in the future phases of the project, which would make it easier.
 
 
 
@@ -152,19 +152,12 @@ end
 md"
 # The read_stsp.jl file 
 
-Here, we added a weight to the one in the original code, and added to tuple of edges.
-
-
-(How we computed the weights?)
-lines..... (flipped)
+Here, we added a weight to the one in the original code, and then added the weight to the tuple of edges. Then, we transferred the string weight to float64 (transfering a string to a number) by reading the line and using the parse function. Here, we only needed to read the weights as a value because they are explicit. The file header of an STSP file also tells us how it is stored and sent to other edges (The file can be in matrix or diagonal matrix or long sting with 0 as marker for the starting and finishing the edges for a specific node)
 
 
 
 
-
-
-
-We tested this for the gr17 instance from the stsp file, and we were unable to plot it using the plot_graph() function since it does not allow us to execute, and there is no way for fixing it. We could, however, plot for the bayg29 instance that is provided in our assignment outputs. 
+Moreover, we tested this for the gr17 instance from the stsp file, and we were unable to plot it using the plot_graph() function since it does not allow us to execute, and there is no way for fixing it. We could, however, plot for the bayg29 instance that is provided in our assignment outputs. 
 
 
 
@@ -204,6 +197,8 @@ md"
 
 
 we created the graph, and below is the example of how we can show the graph. Here, we defined an abstract variable T( like variable K in node.jl file) as a placeholder, and then we added an edge variable. Instead of using the two add_node!() and add_edge!() functions, we created the graph, and used the example to set node1, node2, node3, and also  edge1, and edge2. The purpose here was so that we may add or remove nodes and edges later on in the future phases of the project.
+
+This file creates graphs from a list of edges and nodes, and will print them using the show function. We also created two function for adding edge and nodes to the function.
 
 Then, for the graphs, we defined three functions of: names, nodes, and number of nodes. So, we can show the graph, and easily print each function for the number of nodes, and number of edges.
 
@@ -322,14 +317,13 @@ To begin, this file imports all of the previous files that we have created.
 Second, it reads a stsp file, switches the directory to the data file, and then allows us to select a graph name among several instances.
 The nodes and edges of the graph are then created.
 
-in the stsp file, some of the instances have the assigned name, and location while some of them are not assigned with values (like in gr17). So, in order to prevent from errors, we created a condition to check to see if the name is assigned in the stsp file. Otherwise, we assign a random name, and value to it ourselves.
+in the stsp file, some of the instances have the assigned name, and location while some of them are not assigned with values (like in gr17). So, in order to prevent from errors, we created a condition to check to see if the name is assigned in the stsp file. Otherwise, we assign a random name, and value to it ourselves. So, when we read a TSP file, we make a Node list, and if the node has names in the TSP file, we can use them; if not, we would create one. Node list is said to be an array of Nodes.
+Then we created edge List which is a type of array of Edge : edge[], and add edge start node, end node, and the weight to it.
 
-array?......nodes list
-edges list...location
 
-Then, we went through the edge list and the edges of the graph were createed.
+Then, we went through the edge list and the edges of the graph were created.
 
-Finally, it generates the graph using data types and can display it using the graph name, edges list, and nodes list parameters. The final graph is shown in this step.
+Finally, Once we have two lists, it generates the graph using data types and can display it using the graph name, edges list, and nodes list parameters(G = Graph(graphName, nodesList, edgesList). So, the final graph is shown in this step.
 
 
 
@@ -592,7 +586,7 @@ Question 1. When we look at several of the graphs, notably the gr17, we see that
 md"
 # Conclusion
 
-Overall, we created a primary code in phase 1 of the project that reads a symmetric TSP instance and generates a Graph defined by its nodes and edges based on explicit weights.
+Overall, we created a primary code in phase 1 of the project that reads a symmetric TSP instance and generates a Graph defined by its nodes and edges based on explicit weights. Finally, we showed it by printing the nodes, and edges.
 
 "
 
@@ -601,7 +595,7 @@ Overall, we created a primary code in phase 1 of the project that reads a symmet
 # ╟─b46239d7-3cdd-4d07-b72c-3122dffdb8a9
 # ╟─b157ce54-ad1e-44a2-ba52-4e4881407336
 # ╟─f7536602-86d4-4043-b27a-ba152ebc3cdf
-# ╠═4dc27f4d-7c9c-4d93-b3c3-eb7cd5d73413
+# ╟─4dc27f4d-7c9c-4d93-b3c3-eb7cd5d73413
 # ╟─f05adbc6-d170-49ad-a079-5748d314db4c
 # ╟─65a51afa-6063-43b6-bca4-4a025cfc722e
 # ╟─3687542f-1a0e-4082-9bdd-1c2f8c0abcaf
